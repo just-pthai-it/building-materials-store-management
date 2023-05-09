@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('id')->autoIncrement();
             $table->string('name');
             $table->unsignedTinyInteger('parent_id')->nullable();
+            $table->softDeletes();
 
             $table->foreign('parent_id')->references('id')->on('product_types');
         });
