@@ -10,7 +10,7 @@ class CategoryService
 {
     public function list (array $inputs = []) : JsonResponse
     {
-        $categories = Category::all();
+        $categories = Category::query()->filter($inputs)->get();
         return CusResponse::successful($categories);
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InputInvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSpecificationController;
@@ -27,6 +28,7 @@ Route::group(['middleware' => ['auth:sanctum']], function ()
 
     Route::get('me', [UserController::class, 'me']);
 
+    Route::apiResource('categories', CategoryController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('products.specifications', ProductSpecificationController::class);
     Route::apiResource('input-invoices', InputInvoiceController::class)->only(['index', 'show', 'store']);

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Category\StoreCategoryPostRequest;
+use App\Http\Requests\Category\UpdateCategoryPatchRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -21,55 +24,56 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function index()
+    public function index (Request $request) : JsonResponse
     {
-        //
+        return $this->categoryService->list($request->all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCategoryPostRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store (StoreCategoryPostRequest $request) : JsonResponse
     {
-        //
+        return $this->categoryService->store($request->validated());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return JsonResponse
      */
-    public function show(Category $category)
+    public function show (Category $category) : JsonResponse
     {
-        //
+        return $this->categoryService->get($category);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param UpdateCategoryPatchRequest $request
+     * @param Category                   $category
+     * @return JsonResponse
      */
-    public function update(Request $request, Category $category)
+    public function update (UpdateCategoryPatchRequest $request, Category $category) : JsonResponse
     {
-        //
+        return $this->categoryService->update($category, $request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return JsonResponse
      */
-    public function destroy(Category $category)
+    public function destroy (Category $category) : JsonResponse
     {
-        //
+        return $this->categoryService->delete($category);
     }
 }
