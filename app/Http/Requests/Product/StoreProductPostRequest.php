@@ -28,7 +28,7 @@ class StoreProductPostRequest extends FormRequest
             'unit_id'     => ['required', 'integer'],
             'name'        => ['required', 'string'],
             'brand_name'  => ['required', 'string'],
-            'tax'         => ['sometimes', 'required'],
+            'tax'         => ['required'],
         ];
     }
 }

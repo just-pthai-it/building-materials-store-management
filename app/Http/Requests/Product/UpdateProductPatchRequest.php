@@ -11,9 +11,9 @@ class UpdateProductPatchRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize () : bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,14 @@ class UpdateProductPatchRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules () : array
     {
         return [
-            //
+            'category_id' => ['sometimes', 'required', 'integer'],
+            'unit_id'     => ['sometimes', 'required', 'integer'],
+            'name'        => ['sometimes', 'required', 'string'],
+            'brand_name'  => ['sometimes', 'required', 'string'],
+            'tax'         => ['sometimes', 'required'],
         ];
     }
 }
