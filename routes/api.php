@@ -6,6 +6,7 @@ use App\Http\Controllers\InputInvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSpecificationController;
 use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function ()
 
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('product-types', ProductTypeController::class);
+    Route::apiResource('units', UnitController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('products.specifications', ProductSpecificationController::class);
     Route::apiResource('input-invoices', InputInvoiceController::class)->only(['index', 'show', 'store']);

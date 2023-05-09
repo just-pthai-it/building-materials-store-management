@@ -2,20 +2,27 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Unit extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes, HasFilter;
 
     public const CREATED_AT = null;
     public const UPDATED_AT = null;
 
-        protected $fillable = [
+    protected $fillable = [
         'name',
+        'parent_id',
+        'deleted_at',
+    ];
+
+    private array $filterable = [
         'parent_id',
     ];
 
