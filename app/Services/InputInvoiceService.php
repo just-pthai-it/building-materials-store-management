@@ -55,8 +55,10 @@ class InputInvoiceService
                 $commodity     = $specification->commodity;
                 $inputInvoice->details()->create(Arr::except($detail,
                                                              ['specification_id']) + ['commodity_id' => $commodity->id]);
-                $specification->current_amount = ($commodity->current_amount += $detail['amount']);
+
+                $commodity->current_amount     += $detail['amount'];
                 $commodity->total_amount       += $detail['amount'];
+                $specification->current_amount = $commodity->current_amount;
 
                 $commodity->save();
                 $specification->save();

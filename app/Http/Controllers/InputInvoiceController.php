@@ -55,16 +55,4 @@ class InputInvoiceController extends Controller
     {
         return $this->inputInvoiceService->get($inputInvoice);
     }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param InputInvoice $inputInvoice
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy (InputInvoice $inputInvoice)
-    {
-        //
-    }
 }
