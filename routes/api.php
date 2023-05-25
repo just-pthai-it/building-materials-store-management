@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\InputInvoiceController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSpecificationController;
 use App\Http\Controllers\ProductTypeController;
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth:sanctum']], function ()
     Route::apiResource('products', ProductController::class);
     Route::apiResource('products.specifications', ProductSpecificationController::class);
     Route::apiResource('input-invoices', InputInvoiceController::class)->only(['index', 'show', 'store']);
+    Route::apiResource('invoices', InvoiceController::class)->only(['index', 'show', 'store']);
 });
 
 

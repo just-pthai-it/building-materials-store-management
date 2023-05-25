@@ -11,9 +11,9 @@ class StoreInvoicePostRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize () : bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,21 @@ class StoreInvoicePostRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules () : array
     {
         return [
-            //
+            'payment_method'             => ['required', 'string'],
+            'customer_name'              => ['required', 'required', 'string'],
+            'customer_email'             => ['required', 'string'],
+            'customer_phone'             => ['required', 'string'],
+            'details'                    => ['required', 'array'],
+            'details.*.specification_id' => ['required', 'integer'],
+            'details.*.amount'           => ['required', 'integer'],
         ];
+    }
+
+    public function validated ($key = null, $default = null)
+    {
+        return parent::validated($key, $default) + ['user_id' => auth()->id()];
     }
 }

@@ -2,84 +2,55 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Invoice\StoreInvoicePostRequest;
 use App\Models\Invoice;
+use App\Services\InvoiceService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
+    private InvoiceService $invoiceService;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param InvoiceService $invoiceService
      */
-    public function index()
+    public function __construct (InvoiceService $invoiceService)
     {
-        //
+        $this->invoiceService = $invoiceService;
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function create()
+    public function index (Request $request) : JsonResponse
     {
-        //
+        return $this->invoiceService->list($request->all());
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreInvoicePostRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store (StoreInvoicePostRequest $request) : JsonResponse
     {
-        //
+        return $this->invoiceService->store($request->validated());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Invoice  $invoice
-     * @return \Illuminate\Http\Response
+     * @param Invoice $invoice
+     * @return JsonResponse
      */
-    public function show(Invoice $invoice)
+    public function show (Invoice $invoice) : JsonResponse
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Invoice $invoice)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Invoice $invoice)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Invoice  $invoice
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Invoice $invoice)
-    {
-        //
+        return $this->invoiceService->get($invoice);
     }
 }
