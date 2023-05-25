@@ -6,6 +6,7 @@ use App\Http\Controllers\InputInvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductSpecificationController;
 use App\Http\Controllers\ProductTypeController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -30,6 +31,7 @@ Route::group(['middleware' => ['auth:sanctum']], function ()
 
     Route::get('me', [UserController::class, 'me']);
 
+    Route::apiResource('suppliers', SupplierController::class);
     Route::apiResource('categories', CategoryController::class);
     Route::apiResource('product-types', ProductTypeController::class);
     Route::apiResource('units', UnitController::class);

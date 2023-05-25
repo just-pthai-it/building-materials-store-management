@@ -2,63 +2,78 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Supplier\StoreSupplierPostRequest;
+use App\Http\Requests\Supplier\UpdateSupplierPatchRequest;
 use App\Models\Supplier;
+use App\Services\SupplierService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
+    private SupplierService $supplierService;
+
+    /**
+     * @param SupplierService $supplierService
+     */
+    public function __construct (SupplierService $supplierService)
+    {
+        $this->supplierService = $supplierService;
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function index()
+    public function index (Request $request) : JsonResponse
     {
-        //
+        return $this->supplierService->list($request->all());
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreSupplierPostRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store (StoreSupplierPostRequest $request) : JsonResponse
     {
-        //
+        return $this->supplierService->store($request->validated());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Supplier  $supplier
-     * @return \Illuminate\Http\Response
+     * @param Supplier $supplier
+     * @return JsonResponse
      */
-    public function show(Supplier $supplier)
+    public function show (Supplier $supplier) : JsonResponse
     {
-        //
+        return $this->supplierService->get($supplier);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Supplier  $supplier
-     * @return \Illuminate\Http\Response
+     * @param UpdateSupplierPatchRequest $request
+     * @param Supplier                   $supplier
+     * @return JsonResponse
      */
-    public function update(Request $request, Supplier $supplier)
+    public function update (UpdateSupplierPatchRequest $request, Supplier $supplier) : JsonResponse
     {
-        //
+        return $this->supplierService->update($supplier, $request->validated());
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Supplier  $supplier
-     * @return \Illuminate\Http\Response
+     * @param Supplier $supplier
+     * @return JsonResponse
      */
-    public function destroy(Supplier $supplier)
+    public function destroy (Supplier $supplier) : JsonResponse
     {
-        //
+        return $this->supplierService->delete($supplier);
     }
 }
