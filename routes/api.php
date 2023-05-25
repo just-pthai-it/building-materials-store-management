@@ -30,7 +30,11 @@ Route::group(['middleware' => ['auth:sanctum']], function ()
 {
     Route::post('refresh-token', [AuthenticationController::class, 'refreshToken']);
 
-    Route::get('me', [UserController::class, 'me']);
+    Route::get('profile', [UserController::class, 'myProfile']);
+    Route::patch('profile', [UserController::class, 'updateMyProfile']);
+
+//    Route::get('users/search', [UserController::class, 'search']);
+    Route::apiResource('users', UserController::class);
 
     Route::apiResource('suppliers', SupplierController::class);
     Route::apiResource('categories', CategoryController::class);
