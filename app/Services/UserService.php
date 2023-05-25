@@ -36,21 +36,16 @@ class UserService
 
     public function get (User $user) : JsonResponse
     {
-        $user->load(['roles']);
         return (new UserResource($user))->response();
     }
 
     public function store (array $inputs) : JsonResponse
     {
-        $user = User::query()->create(Arr::except($inputs, ['role_ids', 'avatar']));
+        $user = User::query()->create(Arr::except($inputs, ['avatar']));
         if (isset($inputs['avatar']))
         {
             $fileInfo = $this->fileService->putUploadedFileAs($inputs['avatar'], (string)$user->id, '/avatars');;
             $user->update(['avatar' => $fileInfo['url']]);
-        }
-        if (isset($inputs['role_ids']))
-        {
-            $user->roles()->attach($inputs['role_ids']);
         }
 
         return (new UserResource($user))->response();
@@ -63,12 +58,7 @@ class UserService
             $fileInfo = $this->fileService->putUploadedFileAs($inputs['avatar'], (string)$user->id, '/avatars');;
             $inputs['avatar'] = $fileInfo['url'];
         }
-        $user->update(Arr::except($inputs, ['role_ids']));
-        if (isset($inputs['role_ids']))
-        {
-            $user->roles()->sync($inputs['role_ids']);
-        }
-
+        $user->update($inputs);
 
         return CusResponse::successful();
     }
