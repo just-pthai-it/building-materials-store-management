@@ -14,7 +14,7 @@ class ProductService
 {
     public function list (array $inputs = []) : JsonResponse
     {
-        $products = Product::query()->with(['unit'])->paginate($inputs['per_page'] ?? Constants::DEFAULT_PER_PAGE);
+        $products = Product::query()->filter($inputs)->with(['unit'])->paginate($inputs['per_page'] ?? Constants::DEFAULT_PER_PAGE);
         return (new ProductCollection($products))->response();
     }
 

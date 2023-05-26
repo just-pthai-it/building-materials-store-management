@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Traits\HasFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, HasFilter;
 
     protected $fillable = [
         'category_id',
@@ -27,6 +29,21 @@ class Product extends Model
     protected $attributes = [
         'tax' => 10,
     ];
+
+    private array $filterable = [
+        'name',
+        'brand_name',
+    ];
+
+    public function filterName (Builder $query, string $name) : void
+    {
+        $query->where('name', 'like', "%{$name}%");
+    }
+
+    public function filterBrandName (Builder $query, string $name) : void
+    {
+        $query->where('name', 'like', "%{$name}%");
+    }
 
     public function category () : BelongsTo
     {
