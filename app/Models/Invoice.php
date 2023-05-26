@@ -20,13 +20,15 @@ class Invoice extends Model
         'customer_name',
         'customer_email',
         'customer_phone',
+        'customer_address',
         'payment_method',
         'total',
         'created_at',
     ];
 
     protected $attributes = [
-        'total' => 0,
+        'total'          => 0,
+        'customer_email' => '',
     ];
 
     private array $filterable = [
