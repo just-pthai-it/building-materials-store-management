@@ -50,7 +50,7 @@ class InvoiceService
                 $commodity     = $specification->commodity;
                 if ($detail['amount'] > $commodity->current_amount)
                 {
-                    throw new \Exception('Not enough amount');
+                    abort(422, 'Không đủ số lương ' . $specification->product->name);
                 }
                 $invoice->details()->create(Arr::except($detail,
                                                         ['specification_id']) + ['commodity_id' => $commodity->id,
