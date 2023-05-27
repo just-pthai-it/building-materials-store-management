@@ -24,7 +24,7 @@ class UserService
 
     public function list (array $inputs = []) : JsonResponse
     {
-        $users = User::query()->with(['roles'])->filter($inputs)->paginate($inputs['per_page'] ?? Constants::DEFAULT_PER_PAGE);
+        $users = User::query()->filter($inputs)->paginate($inputs['per_page'] ?? Constants::DEFAULT_PER_PAGE);
         return (new UserCollection($users))->response();
     }
 
