@@ -38,7 +38,7 @@ class InvoiceService
         return (new InvoiceResource($invoice))->response();
     }
 
-    public function store (array $inputs)
+    public function store (array $inputs) : JsonResponse
     {
         try
         {
