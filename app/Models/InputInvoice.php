@@ -45,6 +45,15 @@ class InputInvoice extends Model
         $query->whereBetween('created_at', [$start, "{$end} 23:59:59"]);
     }
 
+    public function filterCategory (Builder $query, string $rawValue) : void
+    {
+        $query->withWhereHas('details.commodity.specification.product.category',
+            function (Builder $query) use ($rawValue)
+            {
+                $query->where('id', '=', $rawValue);
+            });
+    }
+
     public function details () : HasMany
     {
         return $this->hasMany(InputInvoiceDetail::class);
