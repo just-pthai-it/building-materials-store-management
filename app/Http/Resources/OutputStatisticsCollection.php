@@ -47,9 +47,9 @@ class OutputStatisticsCollection extends ResourceCollection
                     }
                     else
                     {
-                        $categoryArr['products'][$product->id] = [$product->getOriginal() +
+                        $categoryArr['products'][$product->id] = $product->getOriginal() +
                                                                   ['amount' => $detail->amount,
-                                                                   'total'  => $detail->price * $detail->amount]];
+                                                                   'total'  => $detail->price * $detail->amount];
                     }
 
                     $categoryArr['amount'] += $detail->amount;
