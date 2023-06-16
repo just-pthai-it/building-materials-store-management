@@ -27,6 +27,12 @@ class StatisticsController extends Controller
         return $this->statisticsService->input($request->all());
     }
 
+    public function inputPerSupplier (Request $request) : JsonResponse
+    {
+        return $this->statisticsService->inputPerSupplier($request->all());
+
+    }
+
     public function output (Request $request) : JsonResponse
     {
         return $this->statisticsService->output($request->all());

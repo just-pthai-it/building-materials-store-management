@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function ()
     Route::prefix('statistics')->group(function ()
     {
         Route::get('input', [StatisticsController::class, 'input']);
+        Route::get('input-per-supplier', [StatisticsController::class, 'inputPerSupplier']);
         Route::get('output', [StatisticsController::class, 'output']);
     });
 });
