@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Traits\HasFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,4 +26,9 @@ class Supplier extends Model
     private array $filterable = [
         'name',
     ];
+
+    public function filterName (Builder $query, string $name) : void
+    {
+        $query->where('name', 'like', "%{$name}%");
+    }
 }

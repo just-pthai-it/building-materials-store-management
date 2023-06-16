@@ -13,7 +13,7 @@ trait HasFilter
     {
         foreach ($queryParams as $key => $value)
         {
-            if ($value == 'all' || empty($value))
+            if ($value == 'all' || $value == 'undefined' || $value == 'null' || empty($value))
             {
                 continue;
             }
@@ -56,18 +56,16 @@ trait HasFilter
             }
         }
 
-        $values = explode('&&', $rawValue);
+        $this->__whereIn($query, $field, $rawValue);
+        $query->where($field, '=', $rawValue);
+    }
+
+    private function __whereIn (Builder $query, string $field, string $value) : void
+    {
+        $values = explode('&&', $value);
         if (count($values) > 1)
         {
             $query->whereIn($field, $values);
-        }
-        else if ($rawValue == 'null')
-        {
-            $query->whereNull($field);
-        }
-        else
-        {
-            $query->where($field, '=', $rawValue);
         }
     }
 

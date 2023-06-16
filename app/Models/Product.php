@@ -42,7 +42,7 @@ class Product extends Model
 
     public function filterBrandName (Builder $query, string $name) : void
     {
-        $query->where('name', 'like', "%{$name}%");
+        $query->where('brand_name', 'like', "%{$name}%");
     }
 
     public function category () : BelongsTo
