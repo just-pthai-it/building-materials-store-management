@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Traits\HasFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,6 +62,11 @@ class User extends Authenticatable
         'name',
         'email',
     ];
+
+    public function filterName (Builder $query, string $name) : void
+    {
+        $query->where('name', 'like', "%{$name}%");
+    }
 
     public function gender () : Attribute
     {
